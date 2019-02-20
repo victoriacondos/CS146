@@ -1,0 +1,72 @@
+/*
+ * Victoria Condos
+ */
+import java.util.Scanner;
+import java.util.Random;
+public class ShowcaseGame 
+{
+	public static final int numPrizes=5;//total # of prizes picked each time
+	public static final String FILE_NAME="C:\\Users\\Victoria\\146S19\\HomeWork00\\prizeList";
+	public static void main(String[]args)
+	{
+		Scanner keyboard=new Scanner(System.in);
+		boolean playing =true;
+		while(playing==true)
+		{
+			//front end of game, contains user inputs and prompts.
+			output("Welcome to the showcase show down!");
+			Prize [] prizes =Showcase.readFile(FILE_NAME);//read text file
+			output("Your prizes are: ");
+			double priceTotal=prizesPicked(prizes);
+			output("You must guess the total cost of all without going over.");
+			output("Enter your guess");
+			//scanner stores guess in double variable
+			double userGuess=keyboard.nextDouble();
+			//check if the value is within $2000 of actual price
+			winner(userGuess,priceTotal);
+			output("Would you like to play again? Enter'no' to quit");
+			String again=keyboard.nextLine();
+			keyboard.nextLine();
+			if(again.equals("no"))
+			{
+				playing=false;
+			}
+			
+		}
+		keyboard.close();	
+	}
+	public static void output(String phrase)
+	{
+		System.out.println(phrase);
+	}
+	public static void output(int number)
+	{
+		System.out.println(number);
+	}
+	
+	public static double prizesPicked(Prize [] prizes)
+	{
+		Random r= new Random();//create rng
+		double totalPrice=0;
+		int size=prizes.length;
+		//rng picks 5 random prizes
+		for(int i=0;i<numPrizes;i++)//can pick same prize more than once
+		{
+			int prizeIndex=r.nextInt(size);//pick random prize from array
+			System.out.println(prizeIndex);
+			output(prizes[prizeIndex].getName());//output name of prize
+			totalPrice+=prizes[prizeIndex].getPrice();//add price to total
+		}
+		return totalPrice;
+	}
+	public static void winner(double guess, double priceTotal)//check if input is winner
+	{
+		output("You guessed "+ guess+ " the actual price is "+ priceTotal);
+		if(priceTotal-guess<=2000 && priceTotal-guess>=-2000)//if guess is low or high within 2000
+		{
+			output("Your guess was under! You win!");	
+		}
+		else
+			output("I'm sorry, but that guess was bad. You lose for being bad.");
+	}
+}

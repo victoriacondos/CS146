@@ -1,0 +1,118 @@
+
+public class GenCircLL <T> 
+{
+	private class ListNode//internal class
+	{
+		private T data;//data type is String
+		private ListNode link;//link type
+		public ListNode(T aData, ListNode aLink)
+		{
+			data=aData;
+			link=aLink;
+		}
+	}
+	private ListNode head;//points to first item in list
+	private ListNode curr;//points to currrent node of interest
+	private ListNode prev;//points to one node before current
+	private ListNode tail;//points to last node of list (tail.link is head)
+	public GenCircLL()//default constructor
+	{
+		head=curr=prev=tail=null;//sets all listNodes to null by default
+	}
+	//methods
+	public void goToNext()
+	{
+		if(curr==null)
+			return;
+		if(curr==tail)
+		{
+			curr=head;
+			prev=tail;
+			return;
+		}
+		prev=curr;
+		curr=curr.link;
+	}
+	/*public void goToPrev()
+	{
+		if(curr!=null)
+		{
+		ListNode temp=head;
+			if(curr==head)
+			{
+				//curr.link=head;
+				curr=tail;
+				//prev=head;
+				while(temp.link!=curr)
+				{
+					temp=temp.link;
+				}
+				prev=temp;
+				return;
+			}
+			curr=prev;
+			while(temp.link!=curr)
+				temp=temp.link;
+			prev=temp;
+			
+		}	
+		return;
+	}
+	*/
+	public T getDataAtCurrent()
+	{
+		if(curr!=null)
+			return curr.data;
+		return null;
+	}
+	public void setDataAtCurrent(T aData)
+	{
+		if(curr!=null)
+			curr.data=aData;
+	}
+	public void insert(T aData)
+	{
+		ListNode newNode= new ListNode(aData,null);
+		if(head==null)//check if list is empty
+		{
+			head=newNode;
+			curr=head;
+			return;
+		}
+		ListNode temp=head;
+		while(temp.link!=null)
+			temp=temp.link;
+		temp.link=newNode;
+		tail=temp.link;
+	}
+	public void deleteCurrent()
+	{
+		if(curr!= null && prev!=tail)//curr is not at head
+		{
+			
+			prev.link=curr.link;
+			curr=curr.link;
+		}
+		else if(curr!= null&&prev==tail )//curr is head
+		{
+			head=head.link;	
+		}
+	}
+	public void print()
+	{
+		for(ListNode temp=head;temp!=tail;temp=temp.link)
+		{
+			System.out.println(temp.data);
+		}
+		System.out.println(tail.data);
+	}
+	public int getListSize()
+	{
+		int size=0;
+		for(ListNode temp=head;temp!=tail;temp=temp.link)
+			size++;
+		if(head!=tail)
+			size++;
+		return size;
+	}
+}

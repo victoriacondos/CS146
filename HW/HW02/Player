@@ -1,0 +1,32 @@
+/*
+ * Victoria Condos
+ */
+public class Player {
+	private String name;
+	private boolean hasPotato;
+	Player()
+	{
+		name="none";
+		hasPotato=false;
+	}
+	Player(String aName, boolean potatoHas)
+	{
+		this.setName(aName);
+		this.setHasPotato(potatoHas);
+	}
+	public boolean getHasPotato()
+	{
+		return hasPotato;
+	}
+	public void setHasPotato(boolean potatoHas)
+	{
+		this.hasPotato=potatoHas;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+}

@@ -1,0 +1,52 @@
+/*
+ * Victoria Condos
+ */
+import java.io.*;
+import java.util.*;
+public class Showcase 
+{
+	public static final String DELIM="\t";
+	public static Prize[] readFile(String fileName)
+	{
+		try
+		{
+			Scanner fileScanner = new Scanner(new File(fileName));
+			//Counts the number of prizes
+			int count = 0;
+			while(fileScanner.hasNextLine())
+			{
+			     count++;
+			     fileScanner.nextLine();
+			}
+			String fileLine;
+			String[] splitLines;
+			Prize[] prizes = new Prize[count];
+			//Reset the Scanner
+			fileScanner = new Scanner(new File(fileName));
+			//Reads the prizes
+			int prizeCount = 0;
+			while(fileScanner.hasNext())
+			{
+			     fileLine = fileScanner.nextLine();
+			     splitLines = fileLine.split(DELIM);
+			     if(splitLines.length == 2)
+			     {
+			          String name = splitLines[0];
+			         double price = Double.parseDouble(splitLines[1]);
+			         prizes[prizeCount] = 
+			          new Prize(name,price);
+			          prizeCount++;
+			     }
+			}
+			fileScanner.close();
+			return prizes;
+
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+}

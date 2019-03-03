@@ -1,0 +1,32 @@
+/*
+*Victoria Condos
+*/
+import java.util.Random;
+public class AvgFour
+{
+	public static final int quadrants=4;//define constant variables
+	public static final int valueRange=9;
+	public static void main(String[] args)
+	{
+		double [][] matrix=new double[quadrants][quadrants];//create matrix
+		Random r= new Random();	
+		for(int i=0;i<quadrants;i++)//populate matrix
+		{
+			for(int j=0;j<quadrants;i++)
+			{
+				matrix[i][j]=r.nextInt(valueRange);
+			}
+		}
+		for(int i=0;i<quadrants;i++)
+		{
+			for(int j=0;j<quadrants;j++)
+			{
+				System.out.print(matrix[i][j]);
+				
+			}
+			System.out.println();
+		}
+
+	}
+
+}
